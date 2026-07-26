@@ -164,6 +164,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .field-l{font-size:8px;color:var(--dim);text-align:center;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
 .log-add{background:var(--pri);color:#fff;border-radius:12px;width:46px;height:46px;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;align-self:flex-end}
 .exlog-hist{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+.info-btn{background:none;border:1px solid var(--line);border-radius:8px;padding:3px 8px;font-size:10px;color:var(--muted);cursor:pointer;transition:all .15s;line-height:1.4;white-space:nowrap}
+.info-btn:hover,.info-btn:active{border-color:var(--pri);color:var(--pri)}
+/* exercise demo modal */
+.ex-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:9990;display:flex;align-items:flex-end;justify-content:center}
+.ex-modal-box{background:var(--s2);border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:22px 18px 40px;border-top:1px solid var(--line)}
+.ex-modal-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.ex-modal-name{font-size:16px;font-weight:700;flex:1;margin-right:10px;line-height:1.3}
+.ex-modal-close{background:var(--s3);border:1px solid var(--line);color:var(--muted);font-size:16px;cursor:pointer;padding:5px 10px;line-height:1;border-radius:8px;flex-shrink:0}
+.muscle-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.mtag{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--pri-soft);color:var(--pri);letter-spacing:.04em}
+.cue-list{list-style:none;padding:0;margin:0 0 14px}
+.cue-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.cue-item:last-child{border:none}
+.cue-n{min-width:20px;height:20px;background:var(--pri);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px}
+.cue-t{font-size:12px;line-height:1.55;opacity:.9}
+.err-box{background:rgba(255,122,89,.07);border:1px solid rgba(255,122,89,.2);border-radius:12px;padding:11px 13px;margin-bottom:14px}
+.err-box h5{font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.07em;margin:0 0 7px}
+.err-item{font-size:11px;color:var(--muted);padding:2px 0}
+.demo-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:var(--s3);border:1px solid var(--line);border-radius:13px;color:var(--txt);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.demo-btn:hover{background:var(--pri);color:#fff;border-color:var(--pri)}
 .hpill{font-size:10px;color:var(--muted);background:var(--s3);border-radius:999px;padding:3px 9px;font-family:"Space Grotesk";font-weight:500}
 .hpill b{color:var(--txt)}
 
@@ -368,6 +388,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   <div class="tb-row">
     <div class="tb-brand">D.<span>B</span>.A.F <small>v.5</small></div>
     <div class="tb-actions">
+      <button class="iconbtn" id="notif-btn" onclick="openNotifModal()" title="Lembretes" style="position:relative">🔔<span id="notif-dot" style="display:none;position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--pri);border-radius:50%;border:1.5px solid var(--bg)"></span></button>
       <button class="iconbtn" id="theme-btn" onclick="toggleTheme()" title="Tema">☾</button>
       <button class="iconbtn" onclick="showView('guia')" title="Guia">?</button>
       <div class="avatar">DF</div>
@@ -453,42 +474,43 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
     <h3 style="margin-bottom:8px">Empurrar + Ombro + Core</h3>
     <div class="legend"><span class="focus-tag ft-est">🎯 Massa</span><span class="focus-tag ft-sau">❤️ Postura</span></div>
     <div class="exhead"><span>Exercício</span><span>Sér</span><span>Reps</span><span>RIR</span></div>
-    <div class="exr"><span class="ex-n">Supino reto com halteres</span><span class="ex-s">4</span><span class="ex-rep">6–8</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Desenvolvimento militar (halteres)</span><span class="ex-s">3</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Supino inclinado</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Supino reto c/ halteres</span><span class="ex-s">4</span><span class="ex-rep">6–8</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Desenvolvimento c/ halteres</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Crucifixo inclinado (halteres)</span><span class="ex-s">3</span><span class="ex-rep">12–15</span><span class="ex-rir">1</span></div>
     <div class="exr"><span class="ex-n">Elevação lateral</span><span class="ex-s">3</span><span class="ex-rep">12–15</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Tríceps na corda (ou testa)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Prancha abdominal</span><span class="ex-s">3</span><span class="ex-rep">45s</span><span class="ex-rir">—</span></div>
-    <div class="exr"><span class="ex-n">Elevação de pernas</span><span class="ex-s">3</span><span class="ex-rep">12–15</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Tríceps na corda (cabo)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Mergulho no banco (dips)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Hollow body hold</span><span class="ex-s">3</span><span class="ex-rep">20–30s</span><span class="ex-rir">—</span></div>
   </div>
 
   <div class="card">
-    <span class="wtag wt-train">LOWER · Quinta 21:30 · 60min</span>
-    <h3 style="margin-bottom:8px">Pernas · força &amp; potência</h3>
-    <div class="legend"><span class="focus-tag ft-est">🎯 Massa</span><span class="focus-tag ft-perf">⚡ Salto</span></div>
+    <span class="wtag wt-train">LOWER · Quinta 21:30 · 65min</span>
+    <h3 style="margin-bottom:8px">Pernas + Glúteos + Core funcional</h3>
+    <div class="legend"><span class="focus-tag ft-est">🎯 Massa</span><span class="focus-tag ft-perf">⚡ Potência</span></div>
     <div class="exhead"><span>Exercício</span><span>Sér</span><span>Reps</span><span>RIR</span></div>
-    <div class="exr"><span class="ex-n">Agachamento livre (ou goblet)</span><span class="ex-s">4</span><span class="ex-rep">6–8</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Levantamento terra romeno (stiff)</span><span class="ex-s">3</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Afundo / Búlgaro com halteres</span><span class="ex-s">3</span><span class="ex-rep">8–10/p</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Elevação pélvica (hip thrust)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Cadeira/mesa flexora</span><span class="ex-s">3</span><span class="ex-rep">12</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Panturrilha em pé</span><span class="ex-s">4</span><span class="ex-rep">12–15</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Pallof press</span><span class="ex-s">3</span><span class="ex-rep">10/l</span><span class="ex-rir">—</span></div>
+    <div class="exr"><span class="ex-n">Agachamento goblet (KB ou haltere)</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Kettlebell swing</span><span class="ex-s">3</span><span class="ex-rep">15</span><span class="ex-rir">—</span></div>
+    <div class="exr"><span class="ex-n">Afundo búlgaro (split squat)</span><span class="ex-s">3</span><span class="ex-rep">8–10/l</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Hip thrust c/ haltere ou barra</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Terra romeno c/ halteres (stiff)</span><span class="ex-s">3</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Panturrilha em pé (step)</span><span class="ex-s">4</span><span class="ex-rep">15–20</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Dead bug</span><span class="ex-s">3</span><span class="ex-rep">8–10/l</span><span class="ex-rir">—</span></div>
+    <div class="exr"><span class="ex-n">Prancha lateral</span><span class="ex-s">3</span><span class="ex-rep">30–40s</span><span class="ex-rir">—</span></div>
   </div>
 
   <div class="card">
     <span class="wtag wt-train">UPPER B · Sábado 10:00 · 75min</span>
-    <h3 style="margin-bottom:8px">Puxar + Braços + Core ⭐</h3>
-    <div class="legend"><span class="focus-tag ft-est">🎯 Costas/braço</span><span class="focus-tag ft-sau">❤️ Postura</span></div>
+    <h3 style="margin-bottom:8px">Puxar + Bíceps + Manguito ⭐</h3>
+    <div class="legend"><span class="focus-tag ft-est">🎯 Costas/braço</span><span class="focus-tag ft-sau">❤️ Ombro saudável</span></div>
     <div class="exhead"><span>Exercício</span><span>Sér</span><span>Reps</span><span>RIR</span></div>
-    <div class="exr"><span class="ex-n">Barra fixa (ou puxada alta)</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Remada curvada (barra/halter)</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Remada baixa (ou serrote)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">2</span></div>
-    <div class="exr"><span class="ex-n">Face pull</span><span class="ex-s">3</span><span class="ex-rep">15</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Rosca direta</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Barra fixa / puxada alta</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Remada curvada c/ halteres</span><span class="ex-s">4</span><span class="ex-rep">8–10</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Remada unilateral (serrote)</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">2</span></div>
+    <div class="exr"><span class="ex-n">Face pull (cabo ou elástico)</span><span class="ex-s">3</span><span class="ex-rep">15</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Rosca direta c/ halteres</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
     <div class="exr"><span class="ex-n">Rosca martelo</span><span class="ex-s">3</span><span class="ex-rep">10–12</span><span class="ex-rir">1</span></div>
+    <div class="exr"><span class="ex-n">Rotação externa c/ elástico</span><span class="ex-s">3</span><span class="ex-rep">15</span><span class="ex-rir">—</span></div>
     <div class="exr"><span class="ex-n">Abdominal na roda (ab wheel)</span><span class="ex-s">3</span><span class="ex-rep">8–10</span><span class="ex-rir">1</span></div>
-    <div class="exr"><span class="ex-n">Prancha lateral</span><span class="ex-s">3</span><span class="ex-rep">30s/l</span><span class="ex-rir">—</span></div>
   </div>
 
   <div class="card">
@@ -733,9 +755,9 @@ const SCHED={
    {t:"21:30",k:"train",kc:"k-train",n:"UPPER A + Core",d:"60min · empurrar/ombro",track:true},
    {t:"22:45",k:"supp",kc:"k-supp",n:"Ceia + Magnésio + wind-down",d:"luz baixa · tela off",track:true}
  ]},
- qua:{label:"Mobilidade + Futevôlei longo",focus:"⚡ Resistência · ❤️ Zona 2",items:[
+ qua:{label:"Mobilidade + Zona 2 + Futevôlei longo",focus:"⚡ Resistência · ❤️ Zona 2 mandatória",items:[
    {t:"06:45",k:"mob",kc:"k-mob",n:"Mobilidade",d:"15min",track:true},
-   {t:"07:15",k:"rec",kc:"k-rec",n:"Zona 2 opcional",d:"30–40min leve",track:true},
+   {t:"07:15",k:"rec",kc:"k-rec",n:"Zona 2 — 35min",d:"FC 120–135 · mandatório · indoor",track:true},
    {t:"12:30",k:"meal",kc:"k-meal",n:"Almoço",d:"+ Creatina + Vit D3 + Ômega-3",track:true},
    {t:"18:30",k:"meal",kc:"k-meal",n:"Jantar leve",d:"90min antes"},
    {t:"19:30",k:"supp",kc:"k-supp",n:"Eletrólitos (Liquidz)",d:"pré-jogo"},
@@ -779,41 +801,138 @@ const SCHED={
  ]}
 };
 const DAILY_SUPP={
- seg:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"200mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo AM"},{id:"liq2",n:"Liquidz 2",d:"jogo noite"},{id:"mag",n:"Magnésio",d:"noite"}],
- ter:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"150mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"mag",n:"Magnésio",d:"noite"}],
- qua:[{id:"creat",n:"Creatina",d:"5g almoço"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo"},{id:"mag",n:"Magnésio",d:"noite"}],
- qui:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"100mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"col",n:"Colágeno+C",d:"pré-lower"},{id:"mag",n:"Magnésio",d:"noite"}],
- sex:[{id:"creat",n:"Creatina",d:"5g"},{id:"caf",n:"Cafeína",d:"200mg AM"},{id:"col",n:"Colágeno+C",d:"pré-jogo"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo"},{id:"mag",n:"Magnésio",d:"noite"}],
- sab:[{id:"creat",n:"Creatina",d:"5g"},{id:"caf",n:"Cafeína",d:"150mg AM"},{id:"col",n:"Colágeno+C",d:"pré-plio"},{id:"d3",n:"Vit D3+K2",d:"manhã"},{id:"omg",n:"Ômega-3",d:"manhã"},{id:"mag",n:"Magnésio",d:"noite"}],
- dom:[{id:"creat",n:"Creatina",d:"5g"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"mag",n:"Magnésio",d:"noite"}]
+ seg:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"200mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo AM"},{id:"liq2",n:"Liquidz 2",d:"jogo noite"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ ter:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"150mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ qua:[{id:"creat",n:"Creatina",d:"5g almoço"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ qui:[{id:"creat",n:"Creatina",d:"5g manhã"},{id:"caf",n:"Cafeína",d:"100mg AM"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"col",n:"Colágeno+C",d:"pré-lower"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ sex:[{id:"creat",n:"Creatina",d:"5g"},{id:"caf",n:"Cafeína",d:"200mg AM"},{id:"col",n:"Colágeno+C",d:"pré-jogo"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"liq",n:"Liquidz",d:"jogo"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ sab:[{id:"creat",n:"Creatina",d:"5g"},{id:"caf",n:"Cafeína",d:"150mg AM"},{id:"col",n:"Colágeno+C",d:"pré-plio"},{id:"d3",n:"Vit D3+K2",d:"manhã"},{id:"omg",n:"Ômega-3",d:"manhã"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}],
+ dom:[{id:"creat",n:"Creatina",d:"5g"},{id:"d3",n:"Vit D3+K2",d:"almoço"},{id:"omg",n:"Ômega-3",d:"almoço"},{id:"mag",n:"Magnésio",d:"noite"},{id:"ash",n:"Ashwagandha",d:"300mg noite"}]
 };
-const NUTRI={seg:{tipo:"Pesado",cal:"~2.500",c:"220g"},ter:{tipo:"Pesado",cal:"~2.500",c:"240g"},qua:{tipo:"Médio",cal:"~2.250",c:"170g"},qui:{tipo:"Pesado",cal:"~2.500",c:"240g"},sex:{tipo:"Médio",cal:"~2.250",c:"170g"},sab:{tipo:"Pesado",cal:"~2.500",c:"240g"},dom:{tipo:"Leve",cal:"~2.000",c:"110g"}};
+const NUTRI={seg:{tipo:"Pesado",cal:"~2.300",c:"200g"},ter:{tipo:"Pesado",cal:"~2.300",c:"200g"},qua:{tipo:"Médio",cal:"~2.100",c:"150g"},qui:{tipo:"Pesado",cal:"~2.300",c:"200g"},sex:{tipo:"Médio",cal:"~2.100",c:"150g"},sab:{tipo:"Pesado",cal:"~2.300",c:"200g"},dom:{tipo:"Leve",cal:"~1.800",c:"90g"}};
 
 /* ---- workout log definitions ---- */
 const WORKOUTS={
- uppera:{name:"Upper A",ex:[
-   {id:"sup_reto",n:"Supino reto com halteres",sets:4,reps:"6–8",top:8},
-   {id:"desenv",n:"Desenvolvimento militar",sets:3,reps:"8–10",top:10},
-   {id:"sup_incl",n:"Supino inclinado",sets:3,reps:"10–12",top:12},
-   {id:"elev_lat",n:"Elevação lateral",sets:3,reps:"12–15",top:15},
-   {id:"tri_corda",n:"Tríceps na corda",sets:3,reps:"10–12",top:12}
+ uppera:{name:"Upper A — Empurrar + Ombro",ex:[
+   {id:"sup_reto",n:"Supino reto c/ halteres",sets:4,reps:"6–8",top:8,
+    muscle:"Peito · Tríceps · Deltóide anterior",
+    cues:["Deite no banco, halteres na altura do peito, cotovelos a 45° do tronco (não abertos a 90°)","Desça controlado em 2 segundos, toque levemente o peito","Empurre de forma explosiva sem travar o cotovelo no topo","Mantenha escápulas retraídas e pés firmes no chão durante toda execução"],
+    mistakes:["Cotovelos abertos a 90° — sobrecarrega o ombro","Quicar o peso no peito — perde tensão e é perigoso"],
+    ytq:"supino+reto+halteres+execução+correta"},
+   {id:"desenv",n:"Desenvolvimento c/ halteres",sets:4,reps:"8–10",top:10,
+    muscle:"Deltóide anterior e médio · Tríceps",
+    cues:["Sentado ou em pé, halteres na altura dos ombros, palmas à frente","Empurre para cima numa linha ligeiramente diagonal — não trave o cotovelo no topo","Desça controlado até os halteres voltarem à linha dos ombros","Core contraído, não arqueie a lombar para compensar carga"],
+    mistakes:["Arquear a lombar — indica carga excessiva","Descer abaixo dos ombros — tensão desnecessária no manguito"],
+    ytq:"desenvolvimento+halteres+ombro+execução+correta"},
+   {id:"crucifixo_inc",n:"Crucifixo inclinado (halteres)",sets:3,reps:"12–15",top:15,
+    muscle:"Peito superior · Deltóide anterior",
+    cues:["Banco a 30–45°, halteres acima do peito com leve flexão fixa no cotovelo","Abra os braços em arco controlado como se abraçasse uma árvore grande","Desça até sentir o alongamento no peito — não force além do conforto","Suba em arco contraindo o peito, não empurre como supino"],
+    mistakes:["Dobrar muito o cotovelo — vira supino, não crucifixo","Carga pesada demais — é isolamento, priorize amplitude e contração"],
+    ytq:"crucifixo+inclinado+halteres+peitoral+execução"},
+   {id:"elev_lat",n:"Elevação lateral",sets:3,reps:"12–15",top:15,
+    muscle:"Deltóide médio",
+    cues:["Em pé ou sentado, halteres nas laterais, cotovelos ligeiramente flexionados","Levante lateralmente até a altura do ombro — incline o halter como despejando água","Controle a descida em 2–3 segundos — fase excêntrica é onde o músculo cresce","Não balance o corpo para ganhar impulso — reduza a carga se necessário"],
+    mistakes:["Usar impulso do corpo (cheating) — retira o trabalho do deltóide","Subir acima dos ombros — não adiciona benefício, aumenta risco"],
+    ytq:"elevação+lateral+deltóide+halteres+execução+correta"},
+   {id:"tri_corda",n:"Tríceps na corda (cabo)",sets:3,reps:"10–12",top:12,
+    muscle:"Tríceps (todas as cabeças)",
+    cues:["De pé na polia alta, segure a corda com cotovelos fixos ao lado do corpo","Empurre a corda para baixo separando as pontas ao final do movimento","Suba lentamente até o antebraço ficar paralelo ao chão","Cotovelos são o pivô — não os mova durante o exercício"],
+    mistakes:["Mover os cotovelos para frente — perde isolamento","Inclinar o corpo inteiro para ajudar — reduza a carga"],
+    ytq:"tríceps+corda+cabo+execução+correta"},
+   {id:"dips_banco",n:"Mergulho no banco (dips)",sets:3,reps:"10–12",top:12,
+    muscle:"Tríceps · Peito inferior · Deltóide anterior",
+    cues:["Mãos no banco atrás, pés apoiados à frente (ou elevados para aumentar dificuldade)","Desça dobrando os cotovelos até 90° — mantenha o corpo próximo ao banco","Empurre de volta sem travar os cotovelos no topo","Tronco levemente inclinado para frente ativa mais o peito inferior"],
+    mistakes:["Descer demais — tensão excessiva no ombro anterior","Afastar muito o corpo do banco — perde eficiência"],
+    ytq:"mergulho+banco+dips+tríceps+peito+execução"},
+   {id:"hollow",n:"Hollow body hold",sets:3,reps:"20–30s",top:0,
+    muscle:"Core anterior · Reto abdominal · Psoas · Serrátil",
+    cues:["Deitado, pressione a lombar ativamente contra o chão — este é o ponto crítico","Eleve as pernas a ~30° e braços estendidos acima da cabeça simultaneamente","Mantenha a lombar colada no chão durante toda a posição","Respire normalmente — não prenda a respiração"],
+    mistakes:["Lombar arqueada (saindo do chão) — o exercício perde o efeito completamente","Prender a respiração — diminui a ativação do core"],
+    ytq:"hollow+body+hold+core+execução+lombar"}
  ]},
- lower:{name:"Lower",ex:[
-   {id:"agach",n:"Agachamento (livre/goblet)",sets:4,reps:"6–8",top:8},
-   {id:"stiff",n:"Terra romeno (stiff)",sets:3,reps:"8–10",top:10},
-   {id:"bulgaro",n:"Afundo / Búlgaro",sets:3,reps:"8–10",top:10},
-   {id:"hip",n:"Elevação pélvica (hip thrust)",sets:3,reps:"10–12",top:12},
-   {id:"flexora",n:"Cadeira/mesa flexora",sets:3,reps:"12",top:12},
-   {id:"pant",n:"Panturrilha em pé",sets:4,reps:"12–15",top:15}
+ lower:{name:"Lower — Pernas + Glúteos + Core",ex:[
+   {id:"agach_goblet",n:"Agachamento goblet (KB ou haltere)",sets:4,reps:"8–10",top:10,
+    muscle:"Quadríceps · Glúteos · Core · Tornozelo",
+    cues:["Segure o kettlebell ou haltere na frente do peito com as duas mãos, cotovelos apontados para baixo","Pés na largura dos ombros ou ligeiramente mais abertos, pontas dos pés levemente para fora","Desça como se fosse sentar numa cadeira — joelhos seguindo a direção dos pés","Peito elevado e lombar neutra — o peso na frente ajuda naturalmente a manter a postura"],
+    mistakes:["Joelhos colapsando para dentro (valgo) — fortaleça o glúteo médio","Inclinar o tronco demais para frente — ajuste a posição do pé ou mobilidade de tornozelo"],
+    ytq:"agachamento+goblet+kettlebell+haltere+execução"},
+   {id:"kb_swing",n:"Kettlebell swing",sets:3,reps:"15",top:0,
+    muscle:"Glúteos · Isquiotibiais · Core · Dorsais",
+    cues:["KB entre as pernas ligeiramente afastadas, incline para frente empurrando o quadril para trás (dobradiça — não agachamento)","Ao baixar, o KB passa entre as pernas — mantenha as costas retas","Contraia os glúteos explosivamente empurrando o quadril para frente — o KB sobe por inércia","Os braços não puxam o KB — são apenas guias; toda a força vem do quadril"],
+    mistakes:["Agachar em vez de fazer dobradiça de quadril — o swing não é um agachamento","Usar os braços para puxar o KB — retira o trabalho dos glúteos","Curvar as costas — perigo para a lombar"],
+    ytq:"kettlebell+swing+dobradiça+quadril+execução+correta"},
+   {id:"bulgaro",n:"Afundo búlgaro (split squat)",sets:3,reps:"8–10",top:10,
+    muscle:"Quadríceps · Glúteos · Estabilizadores · Core",
+    cues:["Pé traseiro apoiado num banco, pé da frente afastado ~70–80cm do banco","Desça verticalmente até o joelho traseiro quase tocar o chão","O joelho da frente não deve ultrapassar muito a ponta do pé — ajuste a distância se necessário","Empurre o calcanhar do pé da frente no chão para subir — ativa mais o glúteo"],
+    mistakes:["Pé traseiro muito perto do banco — desequilíbrio e compensação","Inclinar demais o tronco para frente — perde o foco no quadríceps"],
+    ytq:"afundo+búlgaro+split+squat+halteres+execução"},
+   {id:"hip",n:"Hip thrust c/ haltere ou barra",sets:3,reps:"10–12",top:12,
+    muscle:"Glúteo máximo · Isquiotibiais · Core",
+    cues:["Ombros apoiados no banco, carga no dobramento do quadril (coloque almofada se usar barra)","Pés na largura dos ombros, joelhos a ~90° quando o quadril estiver no topo","Empurre o quadril para cima até a coxa ficar paralela ao chão — contraia o glúteo no topo por 1s","Queixo tucado, olhar para frente — não hiperextenda o pescoço"],
+    mistakes:["Arco lombar excessivo no topo — a pelve deve estar neutra, não inclinada","Pés muito perto ou longe do corpo — teste até os joelhos ficarem a 90° no topo"],
+    ytq:"hip+thrust+glúteos+haltere+barra+execução+correta"},
+   {id:"stiff",n:"Terra romeno c/ halteres (stiff)",sets:3,reps:"8–10",top:10,
+    muscle:"Isquiotibiais · Glúteos · Lombares",
+    cues:["Em pé, halteres à frente das coxas, joelhos levemente flexionados e fixos","Empurre o quadril para trás enquanto desce os halteres próximos às pernas","Desça até sentir o alongamento nos isquiotibiais — não é sobre chegar ao chão","Contraia os glúteos para retornar — não hiperextenda a lombar no topo"],
+    mistakes:["Arredondar a coluna — o maior erro; mantenha lombar neutra sempre","Dobrar muito os joelhos — vira agachamento, não stiff"],
+    ytq:"terra+romeno+stiff+halteres+isquiotibiais+execução"},
+   {id:"pant",n:"Panturrilha em pé (step)",sets:4,reps:"15–20",top:0,
+    muscle:"Gastrocnêmio · Sóleo · Tornozelo",
+    cues:["Em pé na borda de um step ou degrau, calcanhares no ar","Suba na ponta dos pés o mais alto possível — contração máxima no topo","Desça além do nível do step para um alongamento completo","Movimento lento e controlado — 2s subindo, 1s topo, 2s descendo"],
+    mistakes:["Movimento rápido e saltitante — perde a tensão no músculo","Não usar amplitude completa — metade do benefício"],
+    ytq:"panturrilha+em+pé+step+degrau+execução+gastrocnêmio"},
+   {id:"dead_bug",n:"Dead bug",sets:3,reps:"8–10",top:10,
+    muscle:"Core (TVA) · Psoas · Estabilizadores",
+    cues:["Deitado, braços apontando para o teto, joelhos dobrados a 90° no ar","Estenda simultaneamente o braço direito para cima-trás e a perna esquerda para frente","A lombar NÃO pode sair do chão em nenhum momento — esse é o único critério","Retorne ao centro e alterne — o movimento deve ser lento, respirando normalmente"],
+    mistakes:["Lombar sair do chão — o exercício perde o efeito completamente","Movimento rápido — deve ser controlado e intencional"],
+    ytq:"dead+bug+core+lombar+execução+passo+a+passo"},
+   {id:"prancha_lat",n:"Prancha lateral",sets:3,reps:"30–40s",top:0,
+    muscle:"Oblíquos · Glúteo médio · Core lateral",
+    cues:["Apoio no antebraço, corpo em linha reta da cabeça aos pés","Quadril elevado e alinhado — não deixe afundar nem elevar demais","Olhar para frente, respiração normal e contínua","Variação avançada: elevar e baixar o quadril para trabalhar dinamicamente"],
+    mistakes:["Quadril afundando — perde o foco nos oblíquos","Rotação do tronco para compensar a falta de força"],
+    ytq:"prancha+lateral+oblíquos+core+lateral+execução"}
  ]},
- upperb:{name:"Upper B",ex:[
-   {id:"barra",n:"Barra fixa / puxada alta",sets:4,reps:"8–10",top:10},
-   {id:"remada",n:"Remada curvada",sets:4,reps:"8–10",top:10},
-   {id:"remada_baixa",n:"Remada baixa / serrote",sets:3,reps:"10–12",top:12},
-   {id:"face",n:"Face pull",sets:3,reps:"15",top:15},
-   {id:"rosca",n:"Rosca direta",sets:3,reps:"10–12",top:12},
-   {id:"martelo",n:"Rosca martelo",sets:3,reps:"10–12",top:12},
-   {id:"abwheel",n:"Abdominal na roda",sets:3,reps:"8–10",top:10}
+ upperb:{name:"Upper B — Puxar + Bíceps + Manguito",ex:[
+   {id:"barra",n:"Barra fixa / puxada alta",sets:4,reps:"8–10",top:10,
+    muscle:"Dorsal · Bíceps · Rombóides · Trapézio inferior",
+    cues:["Pegada levemente mais larga que os ombros, palmas à frente (pronada)","Puxe os cotovelos em direção ao quadril — não ao peito","Peito elevado e escápulas retraídas no topo — pause 1s","Desça completamente para alongar o dorsal antes da próxima repetição"],
+    mistakes:["Usar impulso do corpo (kipping) — para hipertrofia, movimento estrito","Não descer completamente — perde o alongamento e amplitude"],
+    ytq:"barra+fixa+puxada+alta+dorsal+execução+correta"},
+   {id:"remada",n:"Remada curvada c/ halteres",sets:4,reps:"8–10",top:10,
+    muscle:"Costas médias · Rombóides · Bíceps · Trapézio",
+    cues:["Tronco inclinado a ~45°, halteres pendurados naturalmente","Puxe os halteres em direção ao quadril — não ao peito","Retraia as escápulas ativamente no topo — mantenha por 1s","Desça controlado alongando as costas — fase excêntrica importa"],
+    mistakes:["Inclinar o tronco para ajudar (momentum) — reduz a carga nos músculos-alvo","Puxar para o peito em vez do quadril — ativa mais bíceps que costas"],
+    ytq:"remada+curvada+halteres+costas+execução"},
+   {id:"remada_baixa",n:"Remada unilateral (serrote)",sets:3,reps:"10–12",top:12,
+    muscle:"Dorsal · Rombóide · Bíceps",
+    cues:["Apoie a mão e joelho do mesmo lado no banco, costas paralelas ao chão","Puxe o haltere em direção ao quadril com cotovelo alto","Gire levemente o ombro para cima no topo para maior contração do dorsal","Desça completamente para um alongamento total"],
+    mistakes:["Rotacionar o tronco inteiro para ajudar — trabalho unilateral deve ser isolado","Puxar para o peito em vez do quadril — perde o foco no dorsal"],
+    ytq:"remada+unilateral+serrote+haltere+dorsal+execução"},
+   {id:"face",n:"Face pull (cabo ou elástico)",sets:3,reps:"15",top:0,
+    muscle:"Deltóide posterior · Manguito rotador · Trapézio médio",
+    cues:["Polia ou elástico na altura dos olhos ou acima, segure a corda com as duas mãos","Puxe em direção ao rosto separando as mãos — cotovelos ficam altos e abertos","Mãos chegam atrás das orelhas no final — pause 1s contraindo o deltóide posterior","Retorne lentamente resistindo à carga — não deixe o cabo puxar de volta"],
+    mistakes:["Cotovelos caindo durante o movimento — perde o trabalho no deltoide posterior","Puxar para o pescoço em vez do rosto — muda o ângulo e o músculo-alvo"],
+    ytq:"face+pull+cabo+elástico+manguito+deltóide+posterior+execução"},
+   {id:"rosca",n:"Rosca direta c/ halteres",sets:3,reps:"10–12",top:12,
+    muscle:"Bíceps braquial · Braquial anterior",
+    cues:["Em pé ou sentado, cotovelos fixos ao lado do corpo durante todo o movimento","Suba os halteres girando o pulso (supinação) para potencializar a contração do bíceps","Contraia o bíceps no topo e mantenha por 1s","Desça controlado em 2s — fase excêntrica é fundamental para hipertrofia"],
+    mistakes:["Balançar o corpo para subir a carga — reduza o peso","Mover os cotovelos para frente — o bíceps perde a tensão"],
+    ytq:"rosca+direta+halteres+bíceps+execução+correta"},
+   {id:"martelo",n:"Rosca martelo (hammer curl)",sets:3,reps:"10–12",top:12,
+    muscle:"Braquiorradial · Bíceps braquial · Braquial",
+    cues:["Pegada neutra (palmas voltadas uma para a outra) — halteres na vertical","Cotovelos fixos, suba em linha reta sem supinar o pulso","Pode fazer alternado ou simultâneo — ambos funcionam","Controle a descida como na rosca direta"],
+    mistakes:["Cotovelos saindo do corpo para frente — perde o isolamento","Usar impulso na subida — reduza o peso"],
+    ytq:"rosca+martelo+hammer+curl+halteres+execução"},
+   {id:"rot_ext",n:"Rotação externa c/ elástico",sets:3,reps:"15",top:0,
+    muscle:"Infraespinal · Redondo menor (manguito rotador externo)",
+    cues:["Elástico fixo na altura do cotovelo, braço dobrado a 90° junto ao corpo","Gire o antebraço para fora (rotação externa) — o cotovelo NÃO se move","Retorne lentamente resistindo ao elástico — a volta é tão importante quanto a ida","Dica: coloque uma toalha dobrada entre o cotovelo e o tronco para manter a posição"],
+    mistakes:["Mover o cotovelo do corpo — o exercício perde o isolamento do manguito","Velocidade — deve ser lento e controlado para funcionar"],
+    ytq:"rotação+externa+ombro+elástico+manguito+rotador+execução"},
+   {id:"abwheel",n:"Abdominal na roda (ab wheel)",sets:3,reps:"8–10",top:10,
+    muscle:"Core anterior · TVA · Reto abdominal · Dorsais · Ombros",
+    cues:["De joelhos, roda na frente, costas em posição neutra — não arqueadas","Role para frente mantendo o core fortemente contraído e a lombar reta","Vá apenas até onde consegue manter a lombar neutra — não vá além","Puxe de volta contraindo o core ativamente — não apenas os ombros e dorsais"],
+    mistakes:["Lombar afundando (hiperextensão) — muito perigoso para a coluna","Ir longe demais antes de ter força suficiente — construa gradualmente"],
+    ytq:"abdominal+roda+ab+wheel+execução+core+lombar"}
  ]}
 };
 
@@ -857,7 +976,7 @@ function renderHoje(){
     sEl.appendChild(div);
   });
   const nu=NUTRI[id];
-  document.getElementById("today-nutri").innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><div class="card-lbl" style="margin-bottom:4px">Dia ${nu.tipo.toLowerCase()}</div><div class="num" style="font-size:28px">${nu.cal}<span style="font-size:13px;color:var(--muted);font-weight:500"> kcal</span></div></div><div style="text-align:right;font-size:12px;font-weight:600;line-height:1.7"><span class="c-coral">P 165g</span><br><span class="c-pri">C ${nu.c}</span><br><span class="c-gold">G 70g</span></div></div>`;
+  document.getElementById("today-nutri").innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><div class="card-lbl" style="margin-bottom:4px">Dia ${nu.tipo.toLowerCase()}</div><div class="num" style="font-size:28px">${nu.cal}<span style="font-size:13px;color:var(--muted);font-weight:500"> kcal</span></div></div><div style="text-align:right;font-size:12px;font-weight:600;line-height:1.7"><span class="c-coral">P 175g</span><br><span class="c-pri">C ${nu.c}</span><br><span class="c-gold">G 70g</span></div></div>`;
   const total=tt.length+sup.length;let done=0;tt.forEach(it=>{if(saved["t"+it._i])done++});sup.forEach(s=>{if(saved["s_"+s.id])done++});
   const pct=total?Math.round(done/total*100):0;
   document.getElementById("ring-pct").textContent=pct+"%";
@@ -902,7 +1021,10 @@ function renderReg(){
     let hist="";if(log.length){hist='<div class="exlog-hist">'+log.slice(-4).reverse().map(x=>{const dd=x.d.split("-");return `<span class="hpill"><b>${fmt(x.w)}kg</b>×${x.r} · ${dd[2]}/${dd[1]}</span>`}).join("")+'</div>'}
     card.innerHTML=`
       <div class="exlog-top"><div><div class="exlog-n">${ex.n}</div><div class="exlog-tg">${ex.sets} séries · ${ex.reps} reps</div></div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end">${pr>0?`<span class="pr-badge">PR ${fmt(pr)}kg</span>`:""}${showUp?`<span class="up-badge">↑ subir</span>`:""}</div></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start">
+          ${pr>0?`<span class="pr-badge">PR ${fmt(pr)}kg</span>`:""}${showUp?`<span class="up-badge">↑ subir</span>`:""}
+          <button class="info-btn" onclick="showExModal('${ex.id}')">📋 Como fazer</button>
+        </div></div>
       <div class="exlog-last">${last?`Última: <b>${fmt(last.w)}kg × ${last.r}</b> reps`:"Sem registro ainda"}</div>
       <div class="loginputs">
         <div class="field"><div class="field-l">Carga (kg)</div><input type="number" step="0.5" id="in_${ex.id}_w" placeholder="${last?fmt(last.w):"0"}"></div>
@@ -922,7 +1044,7 @@ function saveSet(exId){
 document.querySelectorAll("#reg-seg .seg-b").forEach(b=>b.addEventListener("click",()=>{curW=b.dataset.w;document.querySelectorAll("#reg-seg .seg-b").forEach(x=>x.classList.toggle("active",x===b));renderReg()}));
 
 /* ---- KPIs ---- */
-let curK=null;const KDEF={cintura:90,peso:75.4,sono:7,tronco:192,gordura:18.6,musculo:35.8,hrv:60};
+let curK=null;const KDEF={cintura:91,peso:76.4,sono:7,tronco:179,gordura:17.2,musculo:36.0,hrv:60};
 function openKpi(id,label,unit,def){curK={id,unit};document.getElementById("m-title").textContent=label;document.getElementById("m-sub").textContent=unit?("valor em "+unit):"valor";document.getElementById("m-in").value=DB.get("kpi_"+id,def);document.getElementById("ov").classList.add("open");setTimeout(()=>document.getElementById("m-in").focus(),80)}
 function closeKpi(){document.getElementById("ov").classList.remove("open");curK=null}
 function saveKpi(){if(!curK)return;const v=parseFloat(document.getElementById("m-in").value);if(isNaN(v))return;DB.set("kpi_"+curK.id,v);renderKpis();closeKpi()}
@@ -1021,8 +1143,11 @@ const SUPP_INFO={
     why:"Sono REM, relaxamento muscular e recuperação. Bisglicinato tem alta absorção.",
     timing:"Imediatamente antes de dormir — o efeito no sono é dose-dependente."},
   whey:{name:"Whey isolado",dose:"25–30g",cat:"core",col:"var(--mint)",catLabel:"Core",
-    why:"Fecha os 165g de proteína diária. Leucina alta → síntese proteica pós-treino.",
-    timing:"Logo após o treino ou na ceia — janela de recuperação."}
+    why:"Fecha os 175g de proteína diária. Leucina alta → síntese proteica pós-treino.",
+    timing:"Logo após o treino ou na ceia — janela de recuperação."},
+  ash:{name:"Ashwagandha KSM-66",dose:"300mg",cat:"core",col:"var(--mint)",catLabel:"Recuperação",
+    why:"Reduz cortisol cronicamente (−11–14% em meta-análises). Cortisol elevado cronicamente → acúmulo de gordura no tronco. Melhora sono REM e composição corporal.",
+    timing:"À noite com a ceia — efeito acumulativo em 4–8 semanas. Ciclar: 8 sem ON / 2 sem OFF."}
 };
 
 /* Schedule por dia → buckets de horário */
@@ -1035,7 +1160,7 @@ const SUPP_DAY={
     {slot:"Futevôlei noite",emoji:"🏐",time:"21:00",items:[
       {id:"liq2",note:"para o 2º jogo"}]},
     {slot:"Ceia · wind-down",emoji:"🌙",time:"22:30",items:[
-      {id:"whey",note:"25g · pós-2º jogo"},{id:"mag"}]}
+      {id:"whey",note:"25g · pós-2º jogo"},{id:"mag"},{id:"ash"}]}
   ],
   ter:[
     {slot:"Manhã",emoji:"🌅",time:"06:30",items:[
@@ -1045,7 +1170,7 @@ const SUPP_DAY={
     {slot:"Pré-força · sem cafeína",emoji:"⚡",time:"20:45",items:[
       {id:"creat",note:"dose extra opcional"}]},
     {slot:"Ceia · wind-down",emoji:"🌙",time:"22:45",items:[
-      {id:"whey",note:"25g · pós-UPPER A"},{id:"mag"}]}
+      {id:"whey",note:"25g · pós-UPPER A"},{id:"mag"},{id:"ash"}]}
   ],
   qua:[
     {slot:"Almoço",emoji:"☀️",time:"12:30",items:[
@@ -1053,7 +1178,7 @@ const SUPP_DAY={
     {slot:"Futevôlei longo (2h)",emoji:"🏐",time:"19:30",items:[
       {id:"liq",note:"durante · repor eletrólitos"}]},
     {slot:"Ceia · wind-down",emoji:"🌙",time:"22:45",items:[
-      {id:"whey",note:"recuperação pós-2h"},{id:"mag"}]}
+      {id:"whey",note:"recuperação pós-2h"},{id:"mag"},{id:"ash"}]}
   ],
   qui:[
     {slot:"Manhã",emoji:"🌅",time:"06:45",items:[
@@ -1063,7 +1188,7 @@ const SUPP_DAY={
     {slot:"Pré-força · 60min antes",emoji:"⚡",time:"20:30",items:[
       {id:"col",note:"LOWER = impacto nos joelhos"}]},
     {slot:"Ceia · wind-down",emoji:"🌙",time:"22:45",items:[
-      {id:"whey",note:"30g · pós-LOWER"},{id:"mag"}]}
+      {id:"whey",note:"30g · pós-LOWER"},{id:"mag"},{id:"ash"}]}
   ],
   sex:[
     {slot:"Manhã",emoji:"🌅",time:"07:00",items:[
@@ -1073,7 +1198,7 @@ const SUPP_DAY={
     {slot:"Almoço · pós-jogo",emoji:"☀️",time:"13:15",items:[
       {id:"whey",note:"25g imediato"},{id:"d3"},{id:"omg"}]},
     {slot:"Noite",emoji:"🌙",time:"22:15",items:[
-      {id:"mag"}]}
+      {id:"mag"},{id:"ash"}]}
   ],
   sab:[
     {slot:"Manhã · pré-sessão dupla",emoji:"🌅",time:"08:15",items:[
@@ -1081,13 +1206,13 @@ const SUPP_DAY={
     {slot:"Pós-treino · almoço",emoji:"☀️",time:"11:30",items:[
       {id:"whey",note:"30g imediato"},{id:"d3"},{id:"omg"}]},
     {slot:"Noite",emoji:"🌙",time:"22:30",items:[
-      {id:"mag"}]}
+      {id:"mag"},{id:"ash"}]}
   ],
   dom:[
     {slot:"Almoço",emoji:"☀️",time:"12:30",items:[
       {id:"creat"},{id:"d3"},{id:"omg"}]},
     {slot:"Noite",emoji:"🌙",time:"22:00",items:[
-      {id:"mag"}]}
+      {id:"mag"},{id:"ash"}]}
   ]
 };
 
@@ -1159,6 +1284,173 @@ function renderSuplDay(id){
 }
 
 applyTheme();renderHeader();renderHoje();renderSemana();renderReg();renderKpis();renderLogs();
+
+// ── EXERCISE DEMO MODAL ────────────────────────────────────────────────────────
+function getEx(id){for(const wk of Object.values(WORKOUTS)){const e=wk.ex.find(x=>x.id===id);if(e)return e}return null}
+
+function showExModal(exId){
+  document.getElementById('ex-modal')?.remove();
+  const ex=getEx(exId);if(!ex)return;
+  const muscles=(ex.muscle||'').split(' · ').map(m=>`<span class="mtag">${m}</span>`).join('');
+  const cues=(ex.cues||[]).map((c,i)=>`<li class="cue-item"><span class="cue-n">${i+1}</span><span class="cue-t">${c}</span></li>`).join('');
+  const errs=(ex.mistakes||[]).map(m=>`<div class="err-item">⚠️ ${m}</div>`).join('');
+  const ytUrl=`https://www.youtube.com/results?search_query=${ex.ytq||ex.n.replace(/ /g,'+')}`;
+  const modal=document.createElement('div');
+  modal.id='ex-modal';modal.className='ex-modal';
+  modal.innerHTML=`
+    <div class="ex-modal-box">
+      <div class="ex-modal-hdr">
+        <div>
+          <div class="ex-modal-name">${ex.n}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">${ex.sets} séries · ${ex.reps} reps</div>
+        </div>
+        <button class="ex-modal-close" id="ex-modal-close">✕</button>
+      </div>
+      ${muscles?`<div class="muscle-wrap">${muscles}</div>`:''}
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Execução passo a passo</div>
+      <ul class="cue-list">${cues}</ul>
+      ${errs?`<div class="err-box"><h5>Erros comuns</h5>${errs}</div>`:''}
+      <a href="${ytUrl}" target="_blank" rel="noopener" class="demo-btn">▶&nbsp; Ver demonstração no YouTube</a>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.remove()});
+  document.getElementById('ex-modal-close').addEventListener('click',()=>modal.remove());
+}
+
+// ── NOTIFICAÇÕES ──────────────────────────────────────────────────────────────
+const NOTIF_STORE = 'dbaf5_notif';
+window._notifTimers = [];
+
+function getNotifCfg(){return JSON.parse(localStorage.getItem(NOTIF_STORE)||'{"enabled":false}')}
+function saveNotifCfg(c){localStorage.setItem(NOTIF_STORE,JSON.stringify(c))}
+
+function updateNotifDot(){
+  const on=getNotifCfg().enabled && ('Notification' in window) && Notification.permission==='granted';
+  document.getElementById('notif-dot').style.display=on?'block':'none';
+}
+
+async function enableNotifications(){
+  if(!('Notification' in window)){alert('Instale o app via Safari (Compartilhar → Adicionar à Tela de Início) para ativar notificações.');return false}
+  const perm=await Notification.requestPermission();
+  if(perm==='granted'){saveNotifCfg({enabled:true});scheduleNotifToday();updateNotifDot();return true}
+  return false;
+}
+
+function disableNotifications(){
+  window._notifTimers.forEach(clearTimeout);window._notifTimers=[];
+  saveNotifCfg({enabled:false});updateNotifDot();
+}
+
+function scheduleNotifToday(){
+  const cfg=getNotifCfg();
+  if(!cfg.enabled||Notification.permission!=='granted')return 0;
+  window._notifTimers.forEach(clearTimeout);window._notifTimers=[];
+  const now=new Date();
+  const dayKey=['dom','seg','ter','qua','qui','sex','sab'][now.getDay()];
+  const sched=SCHED[dayKey];if(!sched)return 0;
+  let count=0;
+  sched.items.forEach(item=>{
+    if(!item.track)return;
+    const[h,m]=item.t.split(':').map(Number);
+    const fire=new Date(now);fire.setHours(h,m,0,0);
+    const delay=fire-Date.now();if(delay<=0)return;
+    window._notifTimers.push(setTimeout(()=>pushNotif(item.n,item.d||'',item.k),delay));
+    count++;
+  });
+  return count;
+}
+
+function pushNotif(title,body,type){
+  if(Notification.permission!=='granted')return;
+  const icons={supp:'💊',fut:'🏐',mob:'🧘',meal:'🍽️',rec:'🏃'};
+  const t=`${icons[type]||'⚡'} ${title}`;
+  if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage({type:'SHOW_NOTIF',title:t,body:body||'',icon:'./icon-192.png'});
+  }else{
+    new Notification(t,{body:body||'',icon:'./icon-192.png'});
+  }
+}
+
+function getUpcomingNotifs(){
+  const now=new Date();
+  const dayKey=['dom','seg','ter','qua','qui','sex','sab'][now.getDay()];
+  const sched=SCHED[dayKey];if(!sched)return[];
+  return sched.items.filter(i=>i.track).map(i=>{
+    const[h,m]=i.t.split(':').map(Number);
+    const fire=new Date(now);fire.setHours(h,m,0,0);
+    return{...i,fire,past:fire<=now};
+  });
+}
+
+function openNotifModal(){
+  document.getElementById('notif-modal-wrap')?.remove();
+  const cfg=getNotifCfg();
+  const perm='Notification' in window?Notification.permission:'unsupported';
+  const on=cfg.enabled&&perm==='granted';
+  const upcoming=getUpcomingNotifs();
+  const icons={supp:'💊',fut:'🏐',mob:'🧘',meal:'🍽️',rec:'🏃'};
+
+  const statusTxt=perm==='denied'
+    ?`<p style="color:var(--coral);font-size:11px;margin-top:10px;line-height:1.5">⚠️ Notificações bloqueadas. No iPhone: Ajustes → Safari → Notificações → permitir este site.</p>`
+    :perm==='unsupported'
+    ?`<p style="color:var(--muted);font-size:11px;margin-top:10px">Instale via Safari (Compartilhar → Adicionar à Tela de Início) para usar notificações.</p>`
+    :'';
+
+  const listHTML=upcoming.map(u=>`
+    <div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);opacity:${u.past?.45:1}">
+      <span style="font-size:16px;min-width:22px;text-align:center">${icons[u.k]||'⚡'}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.n}</div>
+        <div style="font-size:11px;color:var(--muted)">${u.t}${u.past?' · concluído':''}</div>
+      </div>
+    </div>`).join('');
+
+  const wrap=document.createElement('div');
+  wrap.id='notif-modal-wrap';
+  wrap.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  wrap.innerHTML=`
+    <div style="background:var(--s2);border:1px solid var(--line);border-radius:20px;padding:24px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <h3 style="font-size:16px;font-weight:700;margin:0">🔔 Lembretes</h3>
+        <button id="notif-close" style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:0">×</button>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--s3);border-radius:12px">
+        <div>
+          <div style="font-size:13px;font-weight:600">Notificações do protocolo</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px" id="notif-status-lbl">${on?'Ativo · lembretes agendados para hoje':'Desativado'}</div>
+        </div>
+        <button id="notif-toggle-btn" onclick="handleNotifToggle()" style="padding:8px 16px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;background:${on?'var(--pri)':'var(--s1)'};color:${on?'#fff':'var(--muted)'};border:1px solid var(--line)">${on?'Desativar':'Ativar'}</button>
+      </div>
+      ${statusTxt}
+      ${on&&upcoming.length?`
+        <div style="margin-top:18px">
+          <div style="font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Agenda de hoje</div>
+          ${listHTML}
+        </div>`
+      :''}
+      <button onclick="document.getElementById('notif-modal-wrap').remove()" style="width:100%;margin-top:20px;padding:12px;background:var(--s3);color:var(--txt);border:1px solid var(--line);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer">Fechar</button>
+    </div>`;
+  document.body.appendChild(wrap);
+  wrap.addEventListener('click',e=>{if(e.target===wrap)wrap.remove()});
+  document.getElementById('notif-close').addEventListener('click',()=>wrap.remove());
+}
+
+async function handleNotifToggle(){
+  const cfg=getNotifCfg();
+  const on=cfg.enabled&&Notification.permission==='granted';
+  if(on){disableNotifications();openNotifModal();}
+  else{
+    const ok=await enableNotifications();
+    openNotifModal();
+    if(ok){const n=scheduleNotifToday();console.log(`${n} lembretes agendados`)}
+  }
+}
+
+// Init: schedule if already enabled
+updateNotifDot();
+if(getNotifCfg().enabled&&'Notification' in window&&Notification.permission==='granted'){
+  scheduleNotifToday();
+}
 </script>
 </body>
 </html>

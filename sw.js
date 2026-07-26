@@ -1,5 +1,5 @@
 /* Protocolo D.B.A.F · service worker · cache offline */
-const CACHE = "dbaf-v5-3";
+const CACHE = "dbaf-v5-6";
 const CORE = [
   "./",
   "./index.html",
@@ -36,4 +36,16 @@ self.addEventListener("fetch", e => {
       }).catch(() => caches.match("./index.html"));
     })
   );
+});
+
+/* dispara notificação a pedido da página */
+self.addEventListener("message", e => {
+  if (e.data && e.data.type === "SHOW_NOTIF") {
+    self.registration.showNotification(e.data.title, {
+      body: e.data.body || "",
+      icon: e.data.icon || "./icon-192.png",
+      badge: "./icon-192.png",
+      vibrate: [200, 100, 200]
+    });
+  }
 });
